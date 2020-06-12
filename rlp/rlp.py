@@ -1,8 +1,8 @@
-from math import log, ceil
 import struct
 
 
 def convert_to_bytes(input_object):
+    """Convert python objects to bytes can be deserialize with converters"""
     if isinstance(input_object, str):
         return input_object.encode(encoding='utf-8')
 
@@ -13,7 +13,7 @@ def convert_to_bytes(input_object):
             return b'\x00'
 
     elif isinstance(input_object, int):
-        bytes_needed = ceil(log(input_object, 2) / 8)
+        bytes_needed = round((input_object.bit_length() + 7) / 8)
         if input_object >= 0:
             return input_object.to_bytes(bytes_needed, 'big')
         else:
@@ -30,6 +30,7 @@ def convert_to_bytes(input_object):
 
 
 def encode(input_decoded_object):
+    """Encode lists or objects to bytes."""
     if isinstance(input_decoded_object, bytes):
         bytes_string = input_decoded_object
         length = len(bytes_string)
@@ -38,7 +39,7 @@ def encode(input_decoded_object):
         elif length <= 55:
             return (0x80 + length).to_bytes(1, 'big') + bytes_string
         else:
-            bytes_needed = ceil(log(length, 2) / 8)
+            bytes_needed = round((length.bit_length() + 7) / 8)
             return (0xb7 + bytes_needed).to_bytes(1, 'big') + length.to_bytes(bytes_needed, 'big') + bytes_string
 
     elif isinstance(input_decoded_object, list):
@@ -50,14 +51,14 @@ def encode(input_decoded_object):
         if values_length <= 55:
             return (0xc0 + values_length).to_bytes(1, 'big') + encoded_list_values
         else:
-            bytes_needed = ceil(log(values_length, 2) / 8)
+            bytes_needed = round((values_length.bit_length() + 7) / 8)
             return (0xf7 + bytes_needed).to_bytes(1, 'big') + values_length.to_bytes(bytes_needed, 'big') + \
                 encoded_list_values
     else:
         return encode(convert_to_bytes(input_decoded_object))
 
 
-def _decode(value):
+def _decode(value: bytes):
     # Short value
     if value[0] <= 0x7f:
         decoded_data = value[0].to_bytes(1, 'big')
@@ -176,6 +177,7 @@ def _decode(value):
 
 
 def convert_to_types(decoded_object, template):
+    """Decode list of bytes to list of python objects. Use a template"""
     if isinstance(decoded_object, bytes):
         if template:
             return template().convert(decoded_object)
@@ -192,7 +194,8 @@ def convert_to_types(decoded_object, template):
         return output
 
 
-def decode(byte_string, template=None):
+def decode(byte_string: bytes, template=None):
+    """Decode bytes strings to python objects. Use a template if you need convert the bytes to python objects"""
     decoded_bytes = _decode(byte_string)
     if template:
         return convert_to_types(decoded_bytes, template=template)
