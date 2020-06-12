@@ -1,34 +1,35 @@
-Simple RLP (Recursive Length Prefix) - Encode the 
-and decode data structures simple and fast
+##Simple RLP (Recursive Length Prefix)
+####Encode the and decode data structures simple and fast
 
-This module is a alternative to official Ethereum pyrlp.
+This module is a alternative to official Ethereum [pyrlp](https://github.com/ethereum/pyrlp).
 
 The pyrlp needs 5 dependencies. This alternative is write in
 pure python and don't have any dependencies. Recommended use for 
 projects that don't need the Ethereum tools. If you already uses
-the Ethereum tools uses the pyrlp.
+the Ethereum tools uses the [pyrlp](https://github.com/ethereum/pyrlp).
 
-Features:  
-Very simple usage to encode and decode lists of data  
-Very fast to encode  
-Auto serialize python objects (check supported types)
-Templates to convert bytes in decoded objects  
+####Features:  
+ - Very simple usage to encode and decode lists of data  
+ - Very fast to encode  
+ - Auto serialize python objects (check supported types)
+ - Templates to convert bytes in decoded objects
+ - No dependencies
 
-Installation:
+####Installation:
 ```
 pip install simple-rlp 
 ```
   
-Usage:  
+####Usage:  
 
-Encode:
+#####Encode:
 ```python
 >>> import rlp
 >>> my_list = ['python', 'rlp', 255]
 >>> rlp.encode(my_list)
 b'\xcd\x86python\x83rlp\x81\xff'
 ```
-Decode:
+#####Decode:
 ```python
 >>> import rlp
 >>> my_list_encoded = b'\xcd\x86python\x83rlp\x81\xff'
@@ -38,13 +39,13 @@ Decode:
 
 Use templates to decode and convert the bytes to python objects
 
-Supported types:  
+#####Supported types:  
 
-Signed integer  
-Unsigned integer  
-Bool  
-Float  
-String
+ - Signed integer  
+ - Unsigned integer  
+ - Bool  
+ - Float  
+ - String
 
 ```python
 rlp.converters.UInteger # Signed integer
@@ -66,7 +67,7 @@ ASCIIString = rlp.converters.String
 ASCIIString.encoding =  'ascii'
 ```
 
-Template Usage:
+#####Template Usage:
 ```python
 >>> from rlp.converters import *
 >>> import rlp
@@ -78,4 +79,3 @@ Template Usage:
 ['rlp', 1024, 3.141590118408203, True, b'\x08']
 ```
 Note: Put None object to do nothing in template.
-
