@@ -1,5 +1,5 @@
-##Simple RLP (Recursive Length Prefix)
-####Encode the and decode data structures simple and fast
+## Simple RLP (Recursive Length Prefix)
+#### Encode the and decode data structures simple and fast
 
 This module is a alternative to official Ethereum [pyrlp](https://github.com/ethereum/pyrlp).
 
@@ -8,28 +8,28 @@ pure python and don't have any dependencies. Recommended use for
 projects that don't need the Ethereum tools. If you already uses
 the Ethereum tools uses the [pyrlp](https://github.com/ethereum/pyrlp).
 
-####Features:  
+#### Features:  
  - Very simple usage to encode and decode lists of data  
  - Very fast to encode  
  - Auto serialize python objects (check supported types)
  - Templates to convert bytes in decoded objects
  - No dependencies
 
-####Installation:
+#### Installation:
 ```
 pip install simple-rlp 
 ```
   
-####Usage:  
+#### Usage:  
 
-#####Encode:
+##### Encode:
 ```python
 >>> import rlp
 >>> my_list = ['python', 'rlp', 255]
 >>> rlp.encode(my_list)
 b'\xcd\x86python\x83rlp\x81\xff'
 ```
-#####Decode:
+##### Decode:
 ```python
 >>> import rlp
 >>> my_list_encoded = b'\xcd\x86python\x83rlp\x81\xff'
@@ -39,7 +39,7 @@ b'\xcd\x86python\x83rlp\x81\xff'
 
 Use templates to decode and convert the bytes to python objects
 
-#####Supported types:  
+##### Supported types:  
 
  - Signed integer  
  - Unsigned integer  
@@ -67,7 +67,7 @@ ASCIIString = rlp.converters.String
 ASCIIString.encoding =  'ascii'
 ```
 
-#####Template Usage:
+##### Template Usage:
 ```python
 >>> from rlp.converters import *
 >>> import rlp
