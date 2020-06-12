@@ -198,10 +198,3 @@ def decode(byte_string, template=None):
         return convert_to_types(decoded_bytes, template=template)
     else:
         return decoded_bytes
-
-
-if __name__ == '__main__':
-    my_list = ['rlp', 1024, 3.14159, True, b'\x08']
-    my_list_encoded = encode(my_list)
-    my_list_decoded = decode(my_list_encoded)
-    print(my_list_decoded)
