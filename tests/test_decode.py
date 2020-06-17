@@ -1,4 +1,4 @@
-from rlp import decode
+from rlp import decode, encode
 
 
 def test_decode(encoded_input: bytes, expected: any, test_name: str) -> None:

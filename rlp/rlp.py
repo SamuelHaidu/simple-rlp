@@ -141,7 +141,14 @@ def _decode(value: bytes):
             if isinstance(decoded_data, tuple):
                 list_output = []
                 list_output.extend(decoded_data)
-                return (list_output, decoded_offset)
+                if isinstance(decoded_offset, tuple):
+                    output = []
+                    output.append(list_output)
+                    output.extend(decoded_offset)
+                    output = tuple(output)
+                    return output
+                else:
+                    return (list_output, decoded_offset)
             else:
                 return ([decoded_data], decoded_offset)
         else:
@@ -164,7 +171,14 @@ def _decode(value: bytes):
             if isinstance(decoded_data, tuple):
                 list_output = []
                 list_output.extend(decoded_data)
-                return (list_output, decoded_offset)
+                if isinstance(decoded_offset, tuple):
+                    output = []
+                    output.append(list_output)
+                    output.extend(decoded_offset)
+                    output = tuple(output)
+                    return output
+                else:
+                    return (list_output, decoded_offset)
             else:
                 return ([decoded_data], decoded_offset)
         else:
